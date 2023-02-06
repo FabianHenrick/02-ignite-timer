@@ -1,5 +1,7 @@
 import { Header } from "../../components/Header";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
 import { Play } from "phosphor-react";
 import {
   CountDownContainer,
@@ -21,7 +23,7 @@ import {
  * }
  *  */
 export function Home() {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch } = useForm({});
 
   function handleCreateNewCycle(data: any) {
     console.log(data);
