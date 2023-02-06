@@ -22,12 +22,25 @@ import {
  *  }
  * }
  *  */
+
+const newCycleFomrValidationSchema = zod.object({
+  task: zod.string().min(1, "Informe a tarefa"),
+  minutesAmount: zod
+    .number()
+    .min(5, "O ciclo tem que ser de no mínimo 5 minutos.")
+    .max(60, "O ciclo tem que ser de no máximo 60 minutos."),
+});
+
 export function Home() {
-  const { register, handleSubmit, watch } = useForm({});
+  const { register, handleSubmit, watch, formState } = useForm({
+    resolver: zodResolver(newCycleFomrValidationSchema),
+  });
 
   function handleCreateNewCycle(data: any) {
     console.log(data);
   }
+
+  console.log(formState.errors);
 
   const task = watch("task", "MinutesAmount");
   const isSubmitDisabled = !task;
@@ -49,7 +62,7 @@ export function Home() {
               type="number"
               id="minutesAmount"
               placeholder="00"
-              {...register("minutesAmaunt", { valueAsNumber: true })}
+              {...register("minutesAmount", { valueAsNumber: true })}
             />
 
             <span>minutos .</span>
