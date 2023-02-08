@@ -1,8 +1,10 @@
 import { Header } from "../../components/Header";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { Play } from "phosphor-react";
+import { differenceInSeconds } from "date-fns";
 import {
   CountDownContainer,
   FormContainer,
@@ -39,6 +41,7 @@ export function Home() {
     id: string;
     task: string;
     minutesAmount: number;
+    startDate: Date;
   }
 
   const [cycles, setCycles] = useState<Cycle[]>([]);
@@ -54,11 +57,22 @@ export function Home() {
       },
     });
 
+  useEffect(() => {
+    if (activeCycle) {
+      setInterval(() => {
+        setAmountSecondsPassed(
+          differenceInSeconds(new Date(), activeCycle.startDate)
+        );
+      }, 1000);
+    }
+  });
+
   function handleCreateNewCycle(data: NewCycleFormData) {
     const newCycle: Cycle = {
       id: String(new Date().getTime()),
       task: data.task,
       minutesAmount: data.minutesAmount,
+      startDate: new Date(),
     };
 
     setCycles((state) => [...state, newCycle]);
@@ -72,6 +86,7 @@ export function Home() {
 
   const minutesAmount = Math.floor(currentSeconds / 60);
   const secondsAmount = currentSeconds % 60;
+
   const minutes = String(minutesAmount).padStart(2, "0");
   const seconds = String(secondsAmount).padStart(2, "0");
 
