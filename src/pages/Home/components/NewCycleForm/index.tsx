@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 import { FormContainer, TaskInput, MinutesAmount } from "./styles";
 import * as zod from "zod";
 
+interface CountdownProps {
+  activeCycle: any;
+}
+
 const newCycleFomrValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
   minutesAmount: zod
@@ -13,7 +17,7 @@ const newCycleFomrValidationSchema = zod.object({
 
 type NewCycleFormData = zod.infer<typeof newCycleFomrValidationSchema>;
 
-export function NewCycleForm() {
+export function NewCycleForm({ activeCycle }: CountdownProps) {
   const { register, handleSubmit, watch, formState, reset } =
     useForm<NewCycleFormData>({
       resolver: zodResolver(newCycleFomrValidationSchema),
