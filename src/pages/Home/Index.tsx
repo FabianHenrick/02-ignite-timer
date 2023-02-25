@@ -1,5 +1,5 @@
 import { Header } from "../../components/Header";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { createContext, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 import { NewCycleForm } from "./components/NewCycleForm";
 import { Countdown } from "./components/Countdown";
+
+// useState / UseForm / Context
 
 interface Cycle {
   id: string;
