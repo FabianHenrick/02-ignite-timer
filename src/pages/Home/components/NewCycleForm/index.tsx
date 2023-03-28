@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { FormContainer, TaskInput, MinutesAmount } from "./styles";
 import * as zod from "zod";
 import { useContext } from "react";
-import { CyclesContext } from "../../Index";
+import { CyclesContext } from "../../../../contexts/CyclesContext";
 
 interface CountdownProps {
   activeCycle: any;
