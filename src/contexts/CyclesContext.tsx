@@ -68,6 +68,21 @@ export function CyclesContextProvider({
           activeCycleId: null,
         };
       }
+
+      if (action.type === "MARK_CURRENT_CYCLE_AS_FINISHED") {
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+            if (cycle.id === state.activeCycleId) {
+              return { ...cycle, finishedDate: new Date() };
+            } else {
+              return cycle;
+            }
+          }),
+          activeCycleId: null,
+        };
+      }
+
       return state;
     },
     {
