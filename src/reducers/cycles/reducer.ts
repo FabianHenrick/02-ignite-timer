@@ -1,3 +1,5 @@
+import { ActionTypes } from "./actions";
+import { produce } from "Immer";
 export interface Cycle {
   id: string;
   task: string;
@@ -12,20 +14,18 @@ interface CyclesState {
   activeCycleId: string | null;
 }
 
-export enum ActionTypes {
-  ADD_NEW_CYCLE = "ADD_NEW_CYCLE",
-  INTERRUPT_CURRENT_CYCLE = "INTERRUPT_CURRENT_CYCLE",
-  MARK_CURRENT_CYCLE_AS_FINISHED = "MARK_CURRENT_CYCLE_AS_FINISHED",
-}
-
 export function cyclesReducer(state: CyclesState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_NEW_CYCLE:
-      return {
+      /*  return {
         ...state,
         cycles: [...state.cycles, action.payload.newCycle],
         activeCycleId: action.payload.newCycle.id,
-      };
+      }; */
+      return produce(state, (draft) => {
+        draft.cycles.push(action.payload.newCycle);
+        draft.activeCycleId = action.payload.newCycle.id;
+      });
 
     case ActionTypes.INTERRUPT_CURRENT_CYCLE:
       return {
