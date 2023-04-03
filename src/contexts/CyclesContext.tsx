@@ -52,7 +52,7 @@ export function CyclesContextProvider({
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch(markCycleAsFinishedAction);
+    dispatch(markCycleAsFinishedAction());
 
     /* setCycles((state) =>
       state.map((cycle) => {
